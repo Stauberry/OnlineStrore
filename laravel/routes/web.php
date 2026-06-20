@@ -28,18 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Route::middleware(['auth', 'permission:access_admin_panel'])
-//    ->prefix('admin')
-//    ->group(function () {
-//
-//        Route::get('/users', function () {
-//            return 'Users';
-//        });
-//
-////        Route::get('/products', function () {
-////            return 'Products';
-////        });
-//
-//    });
+Route::get('/admin', function () {
+    return view('admin.index');
+})->middleware([
+    'auth',
+    'check.permission:access_admin_panel'
+]);
 
 require __DIR__.'/auth.php';
