@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,17 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/admin', [AdminController::class, 'index'])
     ->middleware(['auth', 'check.permission:access_admin_panel']);
+
+Route::prefix('admin')
+    ->middleware(['auth'])
+    ->group(function () {
+
+        Route::get('/', [AdminController::class, 'index'])
+        ->name('admin.index');
+
+        Route::resource('categories', CategoryController::class);
+
+//        Route::resource('products', ProductController::class);
+    });
 
 require __DIR__.'/auth.php';

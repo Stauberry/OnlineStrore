@@ -1,5 +1,10 @@
-<h1>Admin panel</h1>
+@extends('admin.layout')
 
-<p>Если ты видишь эту страницу — маршрут работает.</p>
+@section('content')
 
-<a href="/dashboard">Вернуться назад</a>
+    <div style="background:white; padding:20px; border-radius:8px;">
+        <h1>Admin Panel</h1>
+        <p>Добро пожаловать в админ-панель</p>
+    </div>
+
+@endsection
