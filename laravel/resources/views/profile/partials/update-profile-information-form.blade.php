@@ -3,6 +3,9 @@
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Profile Information') }}
         </h2>
+        <p>Name: {{ auth()->user()->name }}</p>
+        <p>Email: {{ auth()->user()->email }}</p>
+        <p>Role: {{ auth()->user()->role->name }}</p>
 
         <p class="mt-1 text-sm text-gray-600">
             {{ __("Update your account's profile information and email address.") }}

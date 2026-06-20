@@ -40,14 +40,13 @@ class DatabaseSeeder extends Seeder
         $permissions = DB::table('permissions')
             ->pluck('id', 'name');
         $data = [];
-
         foreach ($permissions as $name => $id) {
             $data[] = [
                 'role_id' => $adminId,
                 'permission_id' => $id,
             ];
         }
-
         DB::table('role_permission')->insert($data);
+
     }
 }
