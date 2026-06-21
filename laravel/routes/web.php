@@ -35,15 +35,16 @@ Route::get('/admin', [AdminController::class, 'index'])
     ->middleware(['auth', 'check.permission:access_admin_panel']);
 
 Route::prefix('admin')
-    ->middleware(['auth'])
+    ->middleware([
+        'auth',
+        'check.permission:access_admin_panel'
+    ])
     ->group(function () {
 
         Route::get('/', [AdminController::class, 'index'])
-        ->name('admin.index');
+            ->name('admin.index');
 
         Route::resource('categories', CategoryController::class);
-
-//        Route::resource('products', ProductController::class);
     });
 
 require __DIR__.'/auth.php';
