@@ -42,28 +42,43 @@
         </div>
 
         <!-- FILTER -->
-        <form method="GET" style="margin-bottom:15px; display:flex; gap:10px; align-items:center;">
+        <form method="GET" class="filters">
 
-            <select name="category" style="padding:6px; cursor: pointer">
-                <option value="">All categories</option>
+            {{-- SEARCH --}}
+            <input type="text"
+                   name="search"
+                   placeholder="Search products..."
+                   value="{{ request('search') }}">
+
+            {{-- CATEGORY --}}
+            <div class="category-bar">
+
+                <a href="{{ route('home') }}"
+                   class="category-card {{ !request('category') ? 'active' : '' }}">
+                    All
+                </a>
 
                 @foreach($categories as $category)
-                    <option value="{{ $category->id }}"
-                        @selected(request('category') == $category->id)>
+
+                    <a href="?category={{ $category->id }}"
+                       class="category-card {{ request('category') == $category->id ? 'active' : '' }}">
                         {{ $category->name }}
-                    </option>
+                    </a>
+
                 @endforeach
+
+            </div>
+
+            {{-- SORT --}}
+            <select name="sort">
+                <option value="">Default</option>
+                <option value="name" {{ request('sort')=='name'?'selected':'' }}>Name</option>
+                <option value="price" {{ request('sort')=='price'?'selected':'' }}>Price</option>
             </select>
 
-            <button type="submit"
-                    style="padding:6px 12px;
-                    background:#2563eb;
-                    color:white;
-                    border:none;
-                    border-radius:4px;
-                    cursor: pointer">
-                Filter
-            </button>
+            <button type="submit">Apply</button>
+
+            <a href="{{ route('home') }}" style="margin-left:10px;">Reset</a>
 
         </form>
 

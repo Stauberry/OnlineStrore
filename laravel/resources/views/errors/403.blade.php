@@ -9,7 +9,7 @@
 
 <p>У вас нет прав для доступа к этой странице.</p>
 
-<a href="/dashboard">Вернуться назад</a>
+<a href="{{ route('home') }}">Back to site</a>
 
 </body>
 </html>

@@ -39,5 +39,7 @@ Route::prefix('admin')
         Route::resource('products', ProductController::class);
     });
 
+Route::get('/product/{slug}', [\App\Http\Controllers\HomeController::class, 'show'])
+    ->name('product.show');
 
 require __DIR__.'/auth.php';
