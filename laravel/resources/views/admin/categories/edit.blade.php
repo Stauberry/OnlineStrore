@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div style="background:white; padding:20px; border-radius:8px;">
+    <div class="card">
 
         <h1>Edit Category</h1>
 
@@ -10,11 +10,20 @@
             @csrf
             @method('PUT')
 
-            <input type="text" name="name" value="{{ $category->name }}">
-            <input type="text" name="slug" value="{{ $category->slug }}">
+            <div style="margin-bottom:10px;">
+                <input type="text" name="name" value="{{ $category->name }}"
+                       style="padding:8px; width:300px;">
+            </div>
 
-            <button type="submit">Update</button>
+            <button type="submit"
+                    style="padding:8px 12px; background:#2563eb; color:white; border:none; cursor: pointer;">
+                Update
+            </button>
         </form>
+
+        <div style="margin-top:15px;">
+            <a href="{{ route('categories.index') }}">← Back</a>
+        </div>
 
     </div>
 

@@ -2,9 +2,14 @@
 
 @section('content')
 
-    <div style="background:white; padding:20px; border-radius:8px;">
-        <h1>Admin Panel</h1>
-        <p>Добро пожаловать в админ-панель</p>
+    <div class="card">
+
+        <h2 class="title">Admin Dashboard</h2>
+
+        <div class="text">
+            Добро пожаловать в админ-панель магазина.
+        </div>
+
     </div>
 
 @endsection

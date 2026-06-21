@@ -2,77 +2,77 @@
 
 @section('content')
 
-    <div style="background:white; padding:20px; border-radius:8px;">
+    <div class="card">
 
         <h1>Categories</h1>
 
-        <!-- ACTIONS -->
-        <div style="margin-bottom:15px; display:flex; gap:10px; align-items:center;">
+        <div style="margin-bottom:15px; display:flex; gap:10px;">
 
-            <a href="{{ route('categories.create') }}"
-               style="padding:8px 12px; background:green; color:white; text-decoration:none; border-radius:4px;">
+            <a href="{{ route('categories.create') }}" class="btn btn-green">
                 + Create
             </a>
 
-            <a href="{{ route('categories.index') }}"
-               style="padding:8px 12px; background:#6b7280; color:white; text-decoration:none; border-radius:4px;">
+            <a href="{{ route('categories.index') }}" class="btn btn-gray">
                 Reset
             </a>
 
-            <a href="?sort=id"
-               style="padding:8px 12px; background:#374151; color:white; text-decoration:none; border-radius:4px;">
-                Sort by ID
+            <a href="?sort=id" class="btn btn-gray">
+                Sort ID
             </a>
 
-            <a href="?sort=name"
-               style="padding:8px 12px; background:#2563eb; color:white; text-decoration:none; border-radius:4px;">
-                Sort by name
+            <a href="?sort=name" class="btn btn-blue">
+                Sort Name
             </a>
 
         </div>
 
-        <!-- TABLE -->
-        <table style="width:100%; border-collapse:collapse; background:white;">
+        <table>
+
             <thead>
-            <tr style="text-align:left; border-bottom:2px solid #ddd;">
-                <th style="padding:10px;">ID</th>
-                <th style="padding:10px;">Name</th>
-                <th style="padding:10px;">Slug</th>
-                <th style="padding:10px;">Actions</th>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Actions</th>
             </tr>
             </thead>
 
             <tbody>
-            @foreach($categories as $category)
-                <tr style="border-bottom:1px solid #eee;">
-                    <td style="padding:10px;">{{ $category->id }}</td>
-                    <td style="padding:10px;">{{ $category->name }}</td>
-                    <td style="padding:10px;">{{ $category->slug }}</td>
 
-                    <td style="padding:10px; white-space:nowrap;">
+            @forelse($categories as $category)
+                <tr>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->name }}</td>
+                    <td>{{ $category->slug }}</td>
+
+                    <td style="white-space:nowrap;">
 
                         <a href="{{ route('categories.edit', $category->id) }}"
-                           style="color:#2563eb; margin-right:10px;">
+                           class="btn btn-blue">
                             Edit
                         </a>
 
                         <form method="POST"
                               action="{{ route('categories.destroy', $category->id) }}"
-                              style="display:inline;"
-                              onsubmit="return confirm('Delete category?')">
-
+                              style="display:inline;">
                             @csrf
                             @method('DELETE')
 
-                            <button style="color:red; background:none; border:none; cursor:pointer;">
+                            <button class="btn btn-red">
                                 Delete
                             </button>
                         </form>
 
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="4">No categories</td>
+                </tr>
+            @endforelse
+
             </tbody>
+
         </table>
 
     </div>

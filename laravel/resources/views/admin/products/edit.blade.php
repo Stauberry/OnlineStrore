@@ -2,27 +2,40 @@
 
 @section('content')
 
-    <h1>Edit Product</h1>
+    <div class="card">
 
-    <form method="POST" action="{{ route('products.update', $product->id) }}">
-        @csrf
-        @method('PUT')
+        <h1>Edit Product</h1>
 
-        <input name="name" value="{{ $product->name }}"><br><br>
-        <input name="price" value="{{ $product->price }}"><br><br>
+        <form method="POST" action="{{ route('products.update', $product->id) }}">
+            @csrf
+            @method('PUT')
 
-        <select name="category_id">
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}"
-                        @if($product->category_id == $category->id) selected @endif>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </select>
+            <div style="margin-bottom:10px;">
+                <input name="name" value="{{ $product->name }}" placeholder="Name">
+            </div>
 
-        <br><br>
+            <div style="margin-bottom:10px;">
+                <input name="price" value="{{ $product->price }}" placeholder="Price">
+            </div>
 
-        <button type="submit">Update</button>
-    </form>
+            <div style="margin-bottom:10px;">
+                <select name="category_id">
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}"
+                            @selected($product->category_id == $category->id)>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <button type="submit"
+                    style="padding:8px 12px; background:#2563eb; color:white; border:none; border-radius:4px;">
+                Update
+            </button>
+
+        </form>
+
+    </div>
 
 @endsection

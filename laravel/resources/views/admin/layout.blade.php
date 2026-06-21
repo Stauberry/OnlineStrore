@@ -2,32 +2,105 @@
 <html>
 <head>
     <title>Admin Panel</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: #111827;
+            color: white;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #d1d5db;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar a:hover {
+            background: #374151;
+            color: white;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+
+        tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .btn {
+            padding: 6px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+        }
+
+        .btn-green { background: green; }
+        .btn-gray { background: #6b7280; }
+        .btn-blue { background: #2563eb; }
+        .btn-red {
+            background: red;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body style="margin:0; font-family: Arial;">
 
-<div style="display:flex; min-height:100vh;">
+<body>
 
-    <!-- SIDEBAR -->
-    <div style="width:220px; background:#1f2937; color:white; padding:20px;">
+<div class="wrapper">
+
+    <div class="sidebar">
         <h3>Admin</h3>
-
-        <ul style="list-style:none; padding:0;">
-            <li style="margin-bottom:10px;">
-                <a style="color:white;" href="{{ route('dashboard') }}">Back to Dashboard</a>
-            </li>
-
-            <li style="margin-bottom:10px;">
-                <a style="color:white;" href="/admin/categories">Categories</a>
-            </li>
-
-            <li style="margin-bottom:10px;">
-                <a style="color:white;" href="/admin/products">Products</a>
-            </li>
-        </ul>
+        <a href="/admin/categories">Categories</a>
+        <a href="/admin/products">Products</a>
+        <a href="{{ route('dashboard') }}">Back to site</a>
     </div>
 
-    <!-- CONTENT -->
-    <div style="flex:1; padding:20px; background:#f3f4f6;">
+    <div class="content">
         @yield('content')
     </div>
 

@@ -2,33 +2,51 @@
 
 @section('content')
 
-    <h1>Create Product</h1>
+    <div class="card">
 
-    <form method="POST" action="{{ route('products.store') }}">
-        @csrf
+        <h1>Create Product</h1>
 
-        <input name="name" placeholder="Name"><br><br>
-        <input name="price" placeholder="Price"><br><br>
+        <form method="POST" action="{{ route('products.store') }}">
+            @csrf
 
-        <select name="category_id">
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}">
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </select>
-        <button type="submit">Save</button>
-        <p>
-            <a style="color:black;" href="/admin/products">Назад</a>
-        </p>
-    </form>
-    @if ($errors->any())
-        <div style="background:#fee2e2; padding:10px; margin-bottom:10px; color:#991b1b;">
-            <ul style="margin:0;">
+            <div style="margin-bottom:10px;">
+                <input name="name" placeholder="Name">
+            </div>
+
+            <div style="margin-bottom:10px;">
+                <input name="price" placeholder="Price">
+            </div>
+
+            <div style="margin-bottom:10px;">
+                <select name="category_id">
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <button type="submit"
+                    style="padding:8px 12px; background:green; color:white; border:none; border-radius:4px;">
+                Save
+            </button>
+
+            <a href="{{ route('products.index') }}"
+               style="margin-left:10px; color:#111;">
+                Back
+            </a>
+
+        </form>
+
+        @if ($errors->any())
+            <div style="margin-top:15px; background:#fee2e2; padding:10px; color:#991b1b;">
                 @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    <div>{{ $error }}</div>
                 @endforeach
-            </ul>
-        </div>
-    @endif
+            </div>
+        @endif
+
+    </div>
+
 @endsection
