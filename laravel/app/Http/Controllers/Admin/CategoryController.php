@@ -11,9 +11,17 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        $query = Category::query();
+
+        if ($request->filled('sort') && $request->sort === 'name') {
+            $query->orderBy('name');
+        } else {
+            $query->orderBy('id', 'desc'); // дефолт
+        }
+
+        $categories = $query->get();
 
         return view('admin.categories.index', compact('categories'));
     }

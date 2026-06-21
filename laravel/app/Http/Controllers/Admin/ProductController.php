@@ -10,11 +10,39 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->get();
+        $categories = Category::all();
 
-        return view('admin.products.index', compact('products'));
+        $query = Product::with('category');
+
+        // FILTER по категории
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // SORT
+        if ($request->filled('sort')) {
+
+            if ($request->sort === 'name') {
+                $query->orderBy('name');
+
+            } elseif ($request->sort === 'price') {
+                $query->orderBy('price');
+
+            } elseif ($request->sort === 'category') {
+                $query->join('categories', 'products.category_id', '=', 'categories.id')
+                    ->orderBy('categories.name')
+                    ->select('products.*');
+            }
+
+        } else {
+            $query->orderBy('id', 'desc');
+        }
+
+        $products = $query->get();
+
+        return view('admin.products.index', compact('products', 'categories'));
     }
 
     public function create()

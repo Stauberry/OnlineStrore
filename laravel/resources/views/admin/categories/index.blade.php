@@ -6,12 +6,32 @@
 
         <h1>Categories</h1>
 
-        <!-- CREATE -->
-        <a href="{{ route('categories.create') }}"
-           style="display:inline-block; margin-bottom:15px; padding:8px 12px; background:green; color:white; text-decoration:none;">
-            + Create
-        </a>
+        <!-- ACTIONS -->
+        <div style="margin-bottom:15px; display:flex; gap:10px; align-items:center;">
 
+            <a href="{{ route('categories.create') }}"
+               style="padding:8px 12px; background:green; color:white; text-decoration:none; border-radius:4px;">
+                + Create
+            </a>
+
+            <a href="{{ route('categories.index') }}"
+               style="padding:8px 12px; background:#6b7280; color:white; text-decoration:none; border-radius:4px;">
+                Reset
+            </a>
+
+            <a href="?sort=id"
+               style="padding:8px 12px; background:#374151; color:white; text-decoration:none; border-radius:4px;">
+                Sort by ID
+            </a>
+
+            <a href="?sort=name"
+               style="padding:8px 12px; background:#2563eb; color:white; text-decoration:none; border-radius:4px;">
+                Sort by name
+            </a>
+
+        </div>
+
+        <!-- TABLE -->
         <table style="width:100%; border-collapse:collapse; background:white;">
             <thead>
             <tr style="text-align:left; border-bottom:2px solid #ddd;">
@@ -29,35 +49,30 @@
                     <td style="padding:10px;">{{ $category->name }}</td>
                     <td style="padding:10px;">{{ $category->slug }}</td>
 
-                    <td style="padding:10px;">
+                    <td style="padding:10px; white-space:nowrap;">
 
-                        <!-- EDIT -->
                         <a href="{{ route('categories.edit', $category->id) }}"
-                           style="color:blue; margin-right:10px;">
+                           style="color:#2563eb; margin-right:10px;">
                             Edit
                         </a>
 
-                        <!-- DELETE -->
                         <form method="POST"
                               action="{{ route('categories.destroy', $category->id) }}"
                               style="display:inline;"
-                              onsubmit="return confirm('Delete this category?')">
+                              onsubmit="return confirm('Delete category?')">
 
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit"
-                                    style="color:red; background:none; border:none; cursor:pointer;">
+                            <button style="color:red; background:none; border:none; cursor:pointer;">
                                 Delete
                             </button>
-
                         </form>
 
                     </td>
                 </tr>
             @endforeach
             </tbody>
-
         </table>
 
     </div>
