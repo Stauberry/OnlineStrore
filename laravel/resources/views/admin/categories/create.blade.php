@@ -13,13 +13,20 @@
                 <input type="text" name="name" placeholder="Name">
             </div>
 
-            <div style="margin-bottom:10px;">
-                <input type="text" name="slug" placeholder="Slug">
-            </div>
-
             <button type="submit">Save</button>
         </form>
 
+        <p>
+            <a style="color:black;" href="/admin/categories">Назад</a>
+        </p>
     </div>
-
+    @if ($errors->any())
+        <div style="background:#fee2e2; padding:10px; margin-bottom:10px; color:#991b1b;">
+            <ul style="margin:0;">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 @endsection

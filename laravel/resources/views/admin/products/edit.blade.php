@@ -9,7 +9,6 @@
         @method('PUT')
 
         <input name="name" value="{{ $product->name }}"><br><br>
-        <input name="slug" value="{{ $product->slug }}"><br><br>
         <input name="price" value="{{ $product->price }}"><br><br>
 
         <select name="category_id">

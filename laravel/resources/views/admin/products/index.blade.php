@@ -16,6 +16,7 @@
             <tr style="background:#f3f4f6; text-align:left;">
                 <th style="padding:12px; border-bottom:1px solid #ddd;">ID</th>
                 <th style="padding:12px; border-bottom:1px solid #ddd;">Name</th>
+                <th style="padding:12px; border-bottom:1px solid #ddd;">Slug</th>
                 <th style="padding:12px; border-bottom:1px solid #ddd;">Category</th>
                 <th style="padding:12px; border-bottom:1px solid #ddd;">Price</th>
                 <th style="padding:12px; border-bottom:1px solid #ddd;">Actions</th>
@@ -25,10 +26,17 @@
             <tbody>
             @foreach($products as $product)
                 <tr style="border-bottom:1px solid #eee;">
-                    <td style="padding:12px;">{{ $product->id }}</td>
+
+                    <td style="padding:12px;">
+                        {{ $product->id }}
+                    </td>
 
                     <td style="padding:12px; font-weight:600;">
                         {{ $product->name }}
+                    </td>
+
+                    <td style="padding:12px; color:#6b7280;">
+                        {{ $product->slug }}
                     </td>
 
                     <td style="padding:12px;">
@@ -58,6 +66,7 @@
                             </button>
                         </form>
                     </td>
+
                 </tr>
             @endforeach
             </tbody>

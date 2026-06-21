@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -26,13 +27,17 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'slug' => 'required|unique:products',
+            'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        Product::create($request->all());
+        Product::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+        ]);
 
         return redirect()->route('products.index');
     }
@@ -50,13 +55,17 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         $request->validate([
-            'name' => 'required',
-            'slug' => 'required|unique:products,slug,' . $id,
+            'name' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'category_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        $product->update($request->all());
+        $product->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+        ]);
 
         return redirect()->route('products.index');
     }
