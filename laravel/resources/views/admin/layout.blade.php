@@ -97,7 +97,7 @@
         <h3>Admin</h3>
         <a href="/admin/categories">Categories</a>
         <a href="/admin/products">Products</a>
-        <a href="{{ route('dashboard') }}">Back to site</a>
+        <a href="{{ route('home') }}">Back to site</a>
     </div>
 
     <div class="content">
