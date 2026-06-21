@@ -12,7 +12,6 @@
             background: #f3f4f6;
         }
 
-        /* HEADER */
         .header {
             height: 70px;
             background: white;
@@ -43,10 +42,32 @@
             border-radius: 6px;
         }
 
-        /* CONTENT */
+        /* 🛒 CART BUTTON */
+        .cart-wrapper {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: #111827;
+            font-weight: bold;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: red;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .content { padding: 30px; }
 
-        /* CATEGORY */
         .category-bar {
             display: flex;
             gap: 10px;
@@ -70,7 +91,6 @@
             color: white;
         }
 
-        /* FILTER */
         .filters {
             margin-top: 20px;
             display: flex;
@@ -83,18 +103,11 @@
             padding: 8px;
         }
 
-        /* GRID */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-top: 20px;
-        }
-
-        /* CARD */
-        .card-link {
-            text-decoration: none;
-            color: inherit;
         }
 
         .card {
@@ -129,12 +142,27 @@
             margin-top: 40px;
             color: #6b7280;
         }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .btn-cart {
+            width: 100%;
+            padding: 8px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="header">
 
     <div class="logo">My Shop</div>
@@ -144,6 +172,21 @@
         @auth
             <span>{{ Auth::user()->name }}</span>
 
+            <!-- 🛒 CART -->
+            @php
+                $cartCount = collect(session('cart', []))->sum('quantity');
+            @endphp
+
+            <a href="{{ route('cart.index') }}" class="cart-wrapper">
+                🛒 Cart
+
+                @if($cartCount > 0)
+                    <span class="cart-badge">
+                        {{ $cartCount }}
+                    </span>
+                @endif
+            </a>
+
             <a href="{{ route('profile.edit') }}">Profile</a>
 
             @permission('access_admin_panel')
@@ -152,7 +195,9 @@
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button style="border:none;background:none;cursor:pointer;">Logout</button>
+                <button style="border:none;background:none;cursor:pointer;">
+                    Logout
+                </button>
             </form>
         @else
             <a href="{{ route('login') }}">Login</a>
@@ -163,10 +208,8 @@
 
 </header>
 
-<!-- CONTENT -->
 <main class="content">
 
-    {{-- CATEGORY --}}
     <h2>Categories</h2>
 
     <div class="category-bar">
@@ -185,7 +228,6 @@
 
     </div>
 
-    {{-- FILTERS --}}
     <form method="GET" class="filters">
 
         <input type="text"
@@ -199,18 +241,10 @@
             <option value="name">Name</option>
         </select>
 
-        @if(request('category'))
-            <a href="{{ route('home') }}"
-               style="padding:8px;background:#6b7280;color:white;text-decoration:none;">
-                Reset
-            </a>
-        @endif
-
         <button type="submit">Apply</button>
 
     </form>
 
-    {{-- PRODUCTS --}}
     <h2 style="margin-top:30px;">Products</h2>
 
     @if($products->count())
@@ -219,28 +253,33 @@
 
             @foreach($products as $product)
 
-                <a href="{{ route('product.show', $product->slug) }}"
-                   class="card-link">
+                <div class="card">
 
-                    <div class="card">
+                    <a href="{{ route('product.show', $product->slug) }}"
+                       class="card-link">
 
                         <div class="img"></div>
 
-                        <div class="title">
-                            {{ $product->name }}
-                        </div>
+                        <div class="title">{{ $product->name }}</div>
 
-                        <div>
-                            {{ $product->category->name ?? '-' }}
-                        </div>
+                        <div>{{ $product->category->name ?? '-' }}</div>
 
-                        <div class="price">
-                            ${{ $product->price }}
-                        </div>
+                        <div class="price">${{ $product->price }}</div>
 
-                    </div>
+                    </a>
 
-                </a>
+                    <form method="POST"
+                          action="{{ route('cart.add', $product->id) }}">
+
+                        @csrf
+
+                        <button type="submit" class="btn-cart">
+                            Add to cart
+                        </button>
+
+                    </form>
+
+                </div>
 
             @endforeach
 
@@ -252,7 +291,6 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer class="footer">
     My Shop © 2026
 </footer>
