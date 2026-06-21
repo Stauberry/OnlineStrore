@@ -19,6 +19,10 @@
             <li style="margin-bottom:10px;">
                 <a style="color:white;" href="/admin/categories">Categories</a>
             </li>
+
+            <li style="margin-bottom:10px;">
+                <a style="color:white;" href="/admin/products">Products</a>
+            </li>
         </ul>
     </div>
 
